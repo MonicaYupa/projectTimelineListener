@@ -10,7 +10,8 @@ int WINDOW_HEIGHT = 720;
 int WINDOW_WIDTH = 1280;
 
 Movie farmerScene;
-String[] environments = new String[5];
+String[] environments = new String[7];
+String[] assets = new String[5];
 PImage bg = null;
 PImage welcome = null;
 float startTime = second();
@@ -39,10 +40,18 @@ void setupEnvironments()
   
   // Initialize environment images
   environments[0] = "start.png"; // Start screen
-  environments[1] = "node1.png";
-  environments[2] = "node2.png";
-  environments[3] = "node3.png";
-  environments[4] = "hulling.png";
+  environments[1] = "timeline1.png";
+  environments[2] = "timeline2.png";
+  environments[3] = "timeline3.png";
+  environments[4] = "timeline4.png";
+  environments[5] = "timeline5.png";
+  environments[6] = "timeline6.png";
+  
+  // Initialize asset images
+  assets[0] = "pale-green-circle";
+  assets[1] = "hovering-circle";
+  assets[2] = "green-cup";
+  assets[3] = "yellow-cup";
 }
 
 void draw() 
