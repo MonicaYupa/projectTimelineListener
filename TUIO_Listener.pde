@@ -40,6 +40,8 @@ PFont font;
 boolean verbose = false; // print console debug messages
 boolean callback = true; // updates only after callbacks
 
+int storyboardNum = 0;
+
 void setup_TUIO()
 {
   
@@ -65,6 +67,17 @@ void draw_TUIO()
    // Determine which fiducials are present on the screen
    if(tuioObjectList.size() > 0) {
      TuioObject last = tuioObjectList.get(0); // Coffee cup
+     
+     if (storyboardNum == 0) { // start screen
+     
+     } else if (storyboardNum == 1) { // timeline screen
+       
+     } else if (storyboardNum == 2) { // hulling screen
+       
+     } else { // Default to start screen
+       
+     }
+     
    }
 }
 

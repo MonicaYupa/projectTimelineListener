@@ -27,9 +27,6 @@ void setup()
 
 void setupEnvironments()
 {
-  farmerScene = new Movie(this, "farmerScene.mp4");
-  
-  
   background(255,255,255); // white
   welcome = loadImage("start.png");
   welcome.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -55,8 +52,7 @@ void setupEnvironments()
 }
 
 void draw() 
-{  
-  background(255,255,255);
+{ 
   draw_TUIO();  
 
 }
