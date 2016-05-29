@@ -54,6 +54,19 @@ void setup_TUIO()
   tuioClient  = new TuioProcessing(this);
 }
 
+// SCREEN METHODS
+void startScreen(TuioObject tobj) {
+  
+}
+
+void timelineScreen(TuioObject tobj) {
+  
+}
+
+void hullingScreen(TuioObject tobj) {
+  
+}
+
 // within the draw method we retrieve an ArrayList of type <TuioObject>, <TuioCursor> or <TuioBlob>
 // from the TuioProcessing client and then loops over all lists to draw the graphical feedback.
 void draw_TUIO()
@@ -69,13 +82,13 @@ void draw_TUIO()
      TuioObject last = tuioObjectList.get(0); // Coffee cup
      
      if (storyboardNum == 0) { // start screen
-     
+       startScreen(last);
      } else if (storyboardNum == 1) { // timeline screen
-       
+       timelineScreen(last);
      } else if (storyboardNum == 2) { // hulling screen
-       
+       hullingScreen(last);
      } else { // Default to start screen
-       
+       background(welcome);
      }
      
    }
