@@ -64,31 +64,8 @@ void draw_TUIO()
    --------------------------------------------------------------- */
    // Determine which fiducials are present on the screen
    if(tuioObjectList.size() > 0) {
-     TuioObject last = tuioObjectList.get(0); // Each new fiducial is added to start of arraylistpr
-     determineScreen(last.getSymbolID());  
-   } else {
-     determineScreen(0);
+     TuioObject last = tuioObjectList.get(0); // Coffee cup
    }
-}
-
-// Determines what the screen is based on the given fiducial
-void determineScreen(int index) {
-  
-  if(index >= 0 && index <= 4) {
-    bg = loadImage(environments[index]);
-  } else {
-    bg = welcome; //Default to welcome screen
-  }
-  bg.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
-  background(bg);
-  
-  // If the movie fiducial is present
-  if(index == 5) {
-    farmerScene.play();
-    //translate(0,720);
-    //rotate(radians(-90));
-    image(farmerScene, 0, 0);
-  }
 }
 
 // --------------------------------------------------------------
