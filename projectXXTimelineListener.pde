@@ -1,4 +1,7 @@
+import TUIO.*;
+
 import processing.video.*;
+//Capture cam;
 
 /*
 This is the main code for the project.
@@ -8,9 +11,6 @@ Contains the setup() and draw() function.
 // Global variables
 int WINDOW_HEIGHT = 800;
 int WINDOW_WIDTH = 800;
-
-int TABLE_HEIGHT = 800;
-int TABLE_WIDTH = 800;
 
 Movie farmerScene;
 String[] environments = new String[7];
@@ -26,6 +26,22 @@ void setup()
   frameRate(30);
   setupEnvironments();
   setup_TUIO();
+//   String[] cameras = Capture.list();
+//  
+//  if (cameras.length == 0) {
+//    println("There are no cameras available for capture.");
+//    exit();
+//  } else {
+//    println("Available cameras:");
+//    for (int i = 0; i < cameras.length; i++) {
+//      println(cameras[i]);
+//    }
+//    
+//    // The camera can be initialized directly using an 
+//    // element from the array returned by list():
+//    cam = new Capture(this, cameras[0]);
+//    cam.start();     
+//  }      
 }
 
 void setupEnvironments()
