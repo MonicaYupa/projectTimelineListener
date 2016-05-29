@@ -35,6 +35,7 @@ float cursor_size = 15;
 float object_size = 60;
 float table_size = 760;
 float scale_factor = 1;
+float buffer_scale = 0.15; //NOTE THIS MAY HAVE TO BE ADJUSTED AFTER TESTING PHYSICAL SETUP
 PFont font;
 
 boolean verbose = false; // print console debug messages
@@ -55,16 +56,49 @@ void setup_TUIO()
 }
 
 // SCREEN METHODS
+//Assume the fiducial is placed in the middle of the cup's lid, so we 
+//measure a square buffer around the cup centered about the fiducial
+//Function takes in intended coordinates of where the cup is "expected" to be
+void checkCupPosition(TuiObject tobj, float xExpected, float yExpected) {
+    xCup = tobj.getX() * width;
+    yCup = tobj.getY() * height;
+    horizontal_buff = width * buffer_scale;
+    vertical_buff = height * buffer_scale;
+  //if cup is within buffered expcted coordinates, return true
+  if ((abs(xExpected - xCup) <= horizontal_buff) && (abs(yExpected - yCup) <= vertical_buff)) {
+    return true;
+  } else { 
+    return false;
+  }
+}
+
+
+
 void startScreen(TuioObject tobj) {
+  if (tobj.getSymbolID() == 0) {
+//    if (tobj.getScreenX() < 
+    println(tobj.getX() * width);
+    println(tobj.getY() * height);
+    println(width);
+    println(height);
+    xCoord = tobj.getX() * width;
+    yCoord = tobj.getY() * height;
+    
   
+
+    //advance storyboardNum counter
+    storyboardNum = 1;
+  }
 }
 
 void timelineScreen(TuioObject tobj) {
-  
+  //advance storyboardNum counter
+  storyboardNum = 2;
 }
 
 void hullingScreen(TuioObject tobj) {
-  
+  //advance storyboardNum counter
+  storyboardNum = 3;
 }
 
 // within the draw method we retrieve an ArrayList of type <TuioObject>, <TuioCursor> or <TuioBlob>
