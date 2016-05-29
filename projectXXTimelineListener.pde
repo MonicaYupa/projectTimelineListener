@@ -6,8 +6,8 @@ Contains the setup() and draw() function.
 */
 
 // Global variables
-int WINDOW_HEIGHT = 720;
-int WINDOW_WIDTH = 1280;
+int WINDOW_HEIGHT = 800;
+int WINDOW_WIDTH = 800;
 
 Movie farmerScene;
 String[] environments = new String[7];
@@ -31,7 +31,7 @@ void setupEnvironments()
   
   
   background(255,255,255); // white
-  welcome = loadImage("welcome.png");
+  welcome = loadImage("start.png");
   welcome.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
   if(bg == null) {
     background(welcome);
