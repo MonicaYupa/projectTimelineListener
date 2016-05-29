@@ -9,6 +9,9 @@ Contains the setup() and draw() function.
 int WINDOW_HEIGHT = 800;
 int WINDOW_WIDTH = 800;
 
+int TABLE_HEIGHT = 800;
+int TABLE_WIDTH = 800;
+
 Movie farmerScene;
 String[] environments = new String[7];
 String[] assets = new String[5];
