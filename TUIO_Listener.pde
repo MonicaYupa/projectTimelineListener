@@ -47,7 +47,7 @@ void setup_TUIO()
 {
   
   font = createFont("Arial", 18);
-  scale_factor = height/table_size;
+  float buffer_scale = height/table_size;
   
   // finally we create an instance of the TuioProcessing client
   // since we add "this" class as an argument the TuioProcessing class expects
