@@ -17,6 +17,12 @@ String[] environments = new String[7];
 String[] assets = new String[5];
 PImage bg = null;
 PImage welcome = null;
+PImage screen1 = null;
+PImage screen2 = null;
+PImage screen3 = null;
+PImage screen4 = null;
+PImage screen5 = null;
+PImage screen6 = null;
 float startTime = second();
 
 void setup()
@@ -52,6 +58,44 @@ void setupEnvironments()
   if(bg == null) {
     background(welcome);
   }
+  
+  screen1 = loadImage("timeline1.png");
+  screen1.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  if(screen1 == null) {
+    background(screen1);
+  }
+  
+  screen2 = loadImage("timeline2.png");
+  screen2.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  if(screen2 == null) {
+    background(screen1);
+  }
+  
+  screen3 = loadImage("timeline3.png");
+  screen3.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  if(screen3 == null) {
+    background(screen3);
+  }
+  
+  screen4 = loadImage("timeline4.png");
+  screen4.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  if(screen4 == null) {
+    background(screen4);
+  }
+  
+  screen5 = loadImage("timeline5.png");
+  screen5.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  if(screen5 == null) {
+    background(screen5);
+  }
+  
+  screen6 = loadImage("timeline6.png");
+  screen6.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  if(screen6 == null) {
+    background(screen6);
+  }
+  
+  
   
   
   // Initialize environment images

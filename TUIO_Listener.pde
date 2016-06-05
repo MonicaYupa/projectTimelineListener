@@ -59,7 +59,7 @@ void setup_TUIO()
 //Assume the fiducial is placed in the middle of the cup's lid, so we 
 //measure a square buffer around the cup centered about the fiducial
 //Function takes in intended coordinates of where the cup is "expected" to be
-boolean checkCupPosition(TuioObject tobj, float xExpected, float yExpected) {
+boolean checkCupTriggered(TuioObject tobj, float xExpected, float yExpected) {
     float xCup = tobj.getX() * width;
     float yCup = tobj.getY() * height;
     float horizontal_buff = width * buffer_scale;
@@ -83,11 +83,12 @@ void startScreen(TuioObject tobj) {
     println(height);
     float xCoord = tobj.getX() * width;
     float yCoord = tobj.getY() * height;
-    
-  
-
+//    background(screen1);
+    if (checkCupTriggered(tobj, table_size * 0.5, table_size * 0.1)) {
+       background(screen1);
     //advance storyboardNum counter
     storyboardNum = 1;
+    }
   }
 }
 
