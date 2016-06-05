@@ -59,11 +59,13 @@ void setup_TUIO()
 //Assume the fiducial is placed in the middle of the cup's lid, so we 
 //measure a square buffer around the cup centered about the fiducial
 //Function takes in intended coordinates of where the cup is "expected" to be
-boolean checkCupTriggered(TuioObject tobj, float xExpected, float yExpected) {
-    float xCup = tobj.getX() * width;
-    float yCup = tobj.getY() * height;
-    float horizontal_buff = width * buffer_scale;
-    float vertical_buff = height * buffer_scale;
+
+boolean checkCupPosition(TuioObject tobj, float xExpected, float yExpected) {
+  float xCup = tobj.getX() * width;
+  float yCup = tobj.getY() * height;
+  float horizontal_buff = width * buffer_scale;
+  float vertical_buff = height * buffer_scale;
+
   //if cup is within buffered expcted coordinates, return true
   if ((abs(xExpected - xCup) <= horizontal_buff) && (abs(yExpected - yCup) <= vertical_buff)) {
     return true;
@@ -72,7 +74,19 @@ boolean checkCupTriggered(TuioObject tobj, float xExpected, float yExpected) {
   }
 }
 
-
+void drawCupOutline(TuioObject cup) {
+  redraw();
+  if(bg == null) {
+    bg = loadImage("start.png");
+    bg.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  }
+  background(bg);
+  float xCup = cup.getX() * width;
+  float yCup = cup.getY() * height;
+  ellipse(xCup,yCup,100,100);
+  stroke(#B7FF9C);
+  fill(#91FF6B);
+}
 
 void startScreen(TuioObject tobj) {
   if (tobj.getSymbolID() == 0) {
@@ -184,6 +198,7 @@ void draw_TUIO()
    
    if(tuioObjectList.size() > 0) {
      TuioObject last = tuioObjectList.get(0); // Coffee cup
+     drawCupOutline(last);
      if (storyboardNum == 0) { // start screen
        startScreen(last);
      } else if (storyboardNum == 1) { // timeline screen
