@@ -83,18 +83,38 @@ void startScreen(TuioObject tobj) {
     println(height);
     float xCoord = tobj.getX() * width;
     float yCoord = tobj.getY() * height;
-//    background(screen1);
-    if (checkCupTriggered(tobj, table_size * 0.5, table_size * 0.1)) {
-       background(screen1);
-    //advance storyboardNum counter
+    background(screen1);
+//    if (checkCupTriggered(tobj, table_size * 0.5, table_size * 0.1)) {
+//       background(screen1);
+//    //advance storyboardNum counter
     storyboardNum = 1;
-    }
+//    }
   }
 }
 
 void timelineScreen(TuioObject tobj) {
-  //advance storyboardNum counter
-  storyboardNum = 2;
+  //    background(screen2);
+//    if (checkCupTriggered(tobj, table_size * 2*(100/6), table_size * (100/5))) {
+    if (tobj.getSymbolID() == 2) {
+       background(screen2);
+    }
+//    if (checkCupTriggered(tobj, table_size * 3* (100/6), table_size * (100/5))) {
+      if (tobj.getSymbolID() == 3) {
+       background(screen3);
+    }
+//    if (checkCupTriggered(tobj, table_size * 4* (100/6), table_size * (100/5))) {
+          if (tobj.getSymbolID() == 4) {
+       background(screen4);
+    }
+//    if (checkCupTriggered(tobj, table_size * 5* (100/6), table_size * (100/5))) {
+      if (tobj.getSymbolID() == 5) {
+       background(screen5);
+       delay(1000); // wait 1 second
+       background(screen6);
+       //advance storyboardNum counter
+       storyboardNum = 2;
+    }
+
 }
 
 void hullingScreen(TuioObject cup) {
