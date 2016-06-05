@@ -28,6 +28,7 @@
 import TUIO.*;
 // declare a TuioProcessing client
 TuioProcessing tuioClient;
+PImage timelineScreen = null;
 
 // these are some helper variables which are used
 // to create scalable graphical feedback
@@ -88,47 +89,53 @@ void drawCupOutline(TuioObject cup) {
   fill(#91FF6B);
 }
 
+
+void loadTimelineScreen(String screenname) {
+  println("this is screenname " + screenname );
+  timelineScreen = loadImage(screenname);
+  timelineScreen.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  background(timelineScreen);
+}
+
+
 void startScreen(TuioObject tobj) {
   if (tobj.getSymbolID() == 0) {
-//    if (tobj.getScreenX() < 
     println(tobj.getX() * width);
     println(tobj.getY() * height);
     println(width);
     println(height);
     float xCoord = tobj.getX() * width;
     float yCoord = tobj.getY() * height;
-    background(screen1);
+    loadTimelineScreen("timeline1.png");
 //    if (checkCupTriggered(tobj, table_size * 0.5, table_size * 0.1)) {
-//       background(screen1);
-//    //advance storyboardNum counter
+    //advance storyboardNum counter
     storyboardNum = 1;
 //    }
   }
 }
 
+
 void timelineScreen(TuioObject tobj) {
-  //    background(screen2);
 //    if (checkCupTriggered(tobj, table_size * 2*(100/6), table_size * (100/5))) {
     if (tobj.getSymbolID() == 2) {
-       background(screen2);
+      loadTimelineScreen("timeline2.png");
     }
 //    if (checkCupTriggered(tobj, table_size * 3* (100/6), table_size * (100/5))) {
-      if (tobj.getSymbolID() == 3) {
-       background(screen3);
+    if (tobj.getSymbolID() == 3) {
+       loadTimelineScreen("timeline3.png");
     }
 //    if (checkCupTriggered(tobj, table_size * 4* (100/6), table_size * (100/5))) {
-          if (tobj.getSymbolID() == 4) {
-       background(screen4);
+    if (tobj.getSymbolID() == 4) {
+        loadTimelineScreen("timeline4.png");
     }
 //    if (checkCupTriggered(tobj, table_size * 5* (100/6), table_size * (100/5))) {
-      if (tobj.getSymbolID() == 5) {
-       background(screen5);
-       delay(1000); // wait 1 second
-       background(screen6);
+    if (tobj.getSymbolID() == 5) {
+      loadTimelineScreen("timeline5.png");
+      delay(2000); // wait 2 seconds
+      loadTimelineScreen("timeline6.png");
        //advance storyboardNum counter
        storyboardNum = 2;
     }
-
 }
 
 void hullingScreen(TuioObject cup) {
