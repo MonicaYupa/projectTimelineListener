@@ -59,7 +59,7 @@ void setup_TUIO()
 //Assume the fiducial is placed in the middle of the cup's lid, so we 
 //measure a square buffer around the cup centered about the fiducial
 //Function takes in intended coordinates of where the cup is "expected" to be
-void checkCupPosition(TuiObject tobj, float xExpected, float yExpected) {
+void checkCupPosition(TuioObject tobj, float xExpected, float yExpected) {
     xCup = tobj.getX() * width;
     yCup = tobj.getY() * height;
     horizontal_buff = width * buffer_scale;
