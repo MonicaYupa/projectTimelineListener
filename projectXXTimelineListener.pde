@@ -72,8 +72,7 @@ void setupEnvironments()
 
 void draw() 
 { 
-  draw_TUIO();  
-
+  draw_TUIO();
 }
 
 void movieEvent(Movie m) {

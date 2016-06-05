@@ -99,6 +99,54 @@ void timelineScreen(TuioObject tobj) {
 void hullingScreen(TuioObject tobj) {
   //advance storyboardNum counter
   storyboardNum = 3;
+
+  println(cup.getX() * TABLE_WIDTH);
+  println(cup.getY() * TABLE_HEIGHT);
+  
+  // Hulling zone
+  int hullingStartX = TABLE_WIDTH/4;
+  int hullingEndX = 3*TABLE_WIDTH/4;
+  int hullingStartY = TABLE_HEIGHT/4;
+  int hullingEndY = 3*TABLE_HEIGHT/4;
+  
+  // Define a rotation with hitting 4 points around a circle in the right order
+  float topX = TABLE_WIDTH/2;
+  float topY = hullingStartY;
+  float rightX = hullingEndX;
+  float rightY = TABLE_HEIGHT/2;
+  float bottomX = TABLE_WIDTH/2;
+  float bottomY = hullingEndY;
+  float leftX = hullingStartX;
+  float leftY = TABLE_HEIGHT/2;
+  
+  int numRotations = 0;
+  int pointsHit = 0;
+  int lastPointHit = 0;
+
+  float cupX = cup.getX() * TABLE_WIDTH;
+  float cupY = cup.getY() * TABLE_HEIGHT;
+  
+  if ((cupX == topX) && (cupY == topY) && (lastPointHit == 0 || lastPointHit == 4)) {
+    if (pointsHit == 4) {
+      numRotations++;
+      pointsHit = 1;
+    }
+    lastPointHit = 1;
+    //println(lastPointHit);
+  } else if ((cupX == rightX) && (cupY == rightY) && (lastPointHit == 1)) {
+    pointsHit = 2;
+    lastPointHit = 2;
+    //println(lastPointHit);
+  } else if ((cupX == bottomX) && (cupY == bottomY) && (lastPointHit == 2)) {
+    pointsHit = 3;
+    lastPointHit = 3;
+    //println(lastPointHit);
+  } else if ((cupX == leftX) && (cupY == leftY) && (lastPointHit == 3)) {
+    pointsHit = 4;
+    lastPointHit = 4;
+    //println(lastPointHit);
+  }
+  println(numRotations);
 }
 
 // within the draw method we retrieve an ArrayList of type <TuioObject>, <TuioCursor> or <TuioBlob>
@@ -112,9 +160,9 @@ void draw_TUIO()
    --- FEDUCIAL DETECTION (ENVIRONMENT AND OBJECT CHANGES) -----
    --------------------------------------------------------------- */
    // Determine which fiducials are present on the screen
+   
    if(tuioObjectList.size() > 0) {
      TuioObject last = tuioObjectList.get(0); // Coffee cup
-     
      if (storyboardNum == 0) { // start screen
        startScreen(last);
      } else if (storyboardNum == 1) { // timeline screen
