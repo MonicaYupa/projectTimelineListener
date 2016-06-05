@@ -59,11 +59,11 @@ void setup_TUIO()
 //Assume the fiducial is placed in the middle of the cup's lid, so we 
 //measure a square buffer around the cup centered about the fiducial
 //Function takes in intended coordinates of where the cup is "expected" to be
-void checkCupPosition(TuioObject tobj, float xExpected, float yExpected) {
-    xCup = tobj.getX() * width;
-    yCup = tobj.getY() * height;
-    horizontal_buff = width * buffer_scale;
-    vertical_buff = height * buffer_scale;
+boolean checkCupPosition(TuioObject tobj, float xExpected, float yExpected) {
+    float xCup = tobj.getX() * width;
+    float yCup = tobj.getY() * height;
+    float horizontal_buff = width * buffer_scale;
+    float vertical_buff = height * buffer_scale;
   //if cup is within buffered expcted coordinates, return true
   if ((abs(xExpected - xCup) <= horizontal_buff) && (abs(yExpected - yCup) <= vertical_buff)) {
     return true;
@@ -81,8 +81,8 @@ void startScreen(TuioObject tobj) {
     println(tobj.getY() * height);
     println(width);
     println(height);
-    xCoord = tobj.getX() * width;
-    yCoord = tobj.getY() * height;
+    float xCoord = tobj.getX() * width;
+    float yCoord = tobj.getY() * height;
     
   
 
@@ -96,35 +96,35 @@ void timelineScreen(TuioObject tobj) {
   storyboardNum = 2;
 }
 
-void hullingScreen(TuioObject tobj) {
+void hullingScreen(TuioObject cup) {
   //advance storyboardNum counter
   storyboardNum = 3;
 
-  println(cup.getX() * TABLE_WIDTH);
-  println(cup.getY() * TABLE_HEIGHT);
+  println(cup.getX() * table_size);
+  println(cup.getY() * table_size);
   
   // Hulling zone
-  int hullingStartX = TABLE_WIDTH/4;
-  int hullingEndX = 3*TABLE_WIDTH/4;
-  int hullingStartY = TABLE_HEIGHT/4;
-  int hullingEndY = 3*TABLE_HEIGHT/4;
+  float hullingStartX = table_size/4;
+  float hullingEndX = 3*table_size/4;
+  float hullingStartY = table_size/4;
+  float hullingEndY = 3*table_size/4;
   
   // Define a rotation with hitting 4 points around a circle in the right order
-  float topX = TABLE_WIDTH/2;
+  float topX = table_size/2;
   float topY = hullingStartY;
   float rightX = hullingEndX;
-  float rightY = TABLE_HEIGHT/2;
-  float bottomX = TABLE_WIDTH/2;
+  float rightY = table_size/2;
+  float bottomX = table_size/2;
   float bottomY = hullingEndY;
   float leftX = hullingStartX;
-  float leftY = TABLE_HEIGHT/2;
+  float leftY = table_size/2;
   
   int numRotations = 0;
   int pointsHit = 0;
   int lastPointHit = 0;
 
-  float cupX = cup.getX() * TABLE_WIDTH;
-  float cupY = cup.getY() * TABLE_HEIGHT;
+  float cupX = cup.getX() * table_size;
+  float cupY = cup.getY() * table_size;
   
   if ((cupX == topX) && (cupY == topY) && (lastPointHit == 0 || lastPointHit == 4)) {
     if (pointsHit == 4) {
