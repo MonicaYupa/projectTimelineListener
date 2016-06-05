@@ -1,7 +1,5 @@
 import TUIO.*;
-
 import processing.video.*;
-//Capture cam;
 
 /*
 This is the main code for the project.
@@ -25,6 +23,8 @@ PImage screen5 = null;
 PImage screen6 = null;
 float startTime = second();
 
+Capture cam = null;
+
 void setup()
 {
   // GUI setup; this sets the relevant parameters for the size of the screen, and framerate.
@@ -32,22 +32,18 @@ void setup()
   frameRate(30);
   setupEnvironments();
   setup_TUIO();
-   String[] cameras = Capture.list();
   
+  // Camera setup
+  String[] cameras = Capture.list();
   if (cameras.length == 0) {
     println("There are no cameras available for capture.");
     exit();
   } else {
-    println("Available cameras:");
-    for (int i = 0; i < cameras.length; i++) {
-      println(cameras[i]);
-    }
-    
-    // The camera can be initialized directly using an 
-    // element from the array returned by list():
-    Capture cam = new Capture(this, cameras[1]);
-    cam.start();     
-  }      
+      // TODO: Put a safety hack here
+      println(cameras[15]);
+      Capture cam = new Capture(this, cameras[15]);
+      cam.start();
+    }       
 }
 
 void setupEnvironments()
