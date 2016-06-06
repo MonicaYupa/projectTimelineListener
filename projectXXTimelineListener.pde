@@ -11,6 +11,8 @@ int WINDOW_HEIGHT = 800;
 int WINDOW_WIDTH = 800;
 
 Movie farmerScene;
+Movie cupGrab;
+Movie cupPlace;
 String[] environments = new String[7];
 String[] assets = new String[5];
 PImage bg = null;
@@ -32,12 +34,13 @@ void setup()
   if (cameras.length == 0) {
     println("There are no cameras available for capture.");
     exit();
-  } else {
+  } 
+//  else {
       // TODO: Put a safety hack here
-      println(cameras[15]);
-      Capture cam = new Capture(this, cameras[15]);
-      cam.start();
-    }       
+//      println(cameras[15]);
+//      Capture cam = new Capture(this, cameras[15]);
+//      cam.start();
+//    }       
     
 }
 
@@ -53,9 +56,6 @@ void setupEnvironments()
     background(welcome);
   }
   
- 
-  
-  
   // Initialize environment images
   environments[0] = "start.png"; // Start screen
   environments[1] = "timeline1.png";
@@ -70,6 +70,10 @@ void setupEnvironments()
   assets[1] = "hovering-circle";
   assets[2] = "green-cup";
   assets[3] = "yellow-cup";
+  
+  //Initialize cup videos
+  cupGrab = new Movie(this, "cupGrab.mov");
+  cupPlace = new Movie(this, "cupplace.mov");
 }
 
 void draw() 
