@@ -94,18 +94,11 @@ void drawCupOutline(TuioObject cup) {
   ellipse(xCup,yCup,cup_outline_diameter,cup_outline_diameter);
   noFill();
   stroke(#000000);
-  
-  // TEST CODE
-  if(!timelineStarted) {
-    drawZone(table_size * 0.5 - cup_outline_diameter/2.0, table_size * 0.1 - cup_outline_diameter/2.0);
-  } else {
-    drawZone(5*table_size/6.0 - cup_outline_diameter/2.0, table_size/6.0 - cup_outline_diameter/2.0);
-  }
 }
 
 
 void loadTimelineScreen(String screenname) {
-  println("this is screenname " + screenname );
+  println("this is screenname " + screenname);
   timelineScreen = loadImage(screenname);
   timelineScreen.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
   background(timelineScreen);
@@ -113,47 +106,47 @@ void loadTimelineScreen(String screenname) {
 
 
 void startScreen(TuioObject tobj) {
-  if (checkCupPosition(tobj, table_size * 0.5 - cup_outline_diameter/2.0, table_size * 0.1 - cup_outline_diameter/2.0)) {
+  if (checkCupPosition(tobj, table_size * 0.5 - cup_outline_diameter/2.0, table_size * 0.1)) {
     loadTimelineScreen("timeline0.png");
     storyboardNum = 1; //advance storyboardNum counter
+    drawZone(5.0*table_size/6.0, table_size/6.0);
   }
 }
 
 
 void timelineScreen(TuioObject tobj) {
-  if (checkCupPosition(tobj, 5.0*table_size/6.0, table_size/6.0) &&
-      !timelineStarted) {
+  if (checkCupPosition(tobj, 5.0*table_size/6.0, table_size/6.0) && !timelineStarted) {
     loadTimelineScreen("timeline1.png");
-  }
-  
-  if (checkCupPosition(tobj, 5.0*table_size/6.0, table_size/6.0) ) {    
-    loadTimelineScreen("timeline2.png");
     timelineStarted = true;
+    drawZone(5.0*table_size/6.0, table_size/6.0);
   }
   
-  if (checkCupPosition(tobj, 4*table_size/6.0, table_size/5.0)) {
+  if (checkCupPosition(tobj, 5.0*table_size/6.0, table_size/6.0) && timelineStarted) {    
+    loadTimelineScreen("timeline2.png"); 
+    drawZone(4.0*table_size/6.0, table_size/6.0);
+  }
+  
+  if (checkCupPosition(tobj, 4.0*table_size/6.0, table_size/6.0)) {
     loadTimelineScreen("timeline3.png");
+    drawZone(3.0*table_size/6.0, table_size/6.0);
   }
   
-  if (checkCupPosition(tobj, 3*table_size/6.0, table_size/5.0)) {
+  if (checkCupPosition(tobj, 3.0*table_size/6.0, table_size/6.0)) {
     loadTimelineScreen("timeline4.png");
+    drawZone(table_size/6.0, table_size/6.0);
   }
   
-  if (checkCupPosition(tobj, table_size/6.0, table_size/5.0)) {
+  if (checkCupPosition(tobj, table_size/6.0, table_size/6.0)) {
     loadTimelineScreen("timeline5.png");
     delay(1000); // wait 1 second
     loadTimelineScreen("timeline6.png");
-    //advance storyboardNum counter
-    storyboardNum = 2;
+    storyboardNum = 2; //advance storyboardNum counter
   }
 }
 
 void hullingScreen(TuioObject cup) {
   //advance storyboardNum counter
   storyboardNum = 3;
-
-  println(cup.getX() * table_size);
-  println(cup.getY() * table_size);
 
   // Hulling zone
   float hullingStartX = table_size/4;

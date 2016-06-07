@@ -46,9 +46,9 @@ void setup()
 
 void setupEnvironments()
 {
-  background(255,255,255); // white
   timelineScreen = loadImage("start.png");
   timelineScreen.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  background(timelineScreen);
 
   //Initialize cup videos
   cupGrab = new Movie(this, "cupGrab.mov");
