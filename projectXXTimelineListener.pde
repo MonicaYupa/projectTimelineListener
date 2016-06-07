@@ -37,8 +37,7 @@ void setup()
   } 
   else {
       // TODO: Put a safety hack here
-
-      Capture cam = new Capture(this, cameras[15]);
+      cam = new Capture(this, cameras[15]);
       cam.start();
     }
 }
