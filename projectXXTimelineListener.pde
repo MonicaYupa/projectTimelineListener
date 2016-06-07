@@ -16,6 +16,8 @@ float cup_outline_diameter = 150.0;
 Capture cam = null;
 PImage timelineScreen = null;
 PImage hulling = null;
+Movie starbucksVideo;
+Movie hullingTimer;
 Movie farmerScene;
 Movie cupGrab;
 Movie cupPlace;
@@ -24,6 +26,7 @@ Movie test;
 // Screen flow logic
 int storyboardNum = 0;
 boolean timelineStarted = false;
+boolean hullingDone = false;
 int timelineNode = 0;
 
 void setup()
@@ -57,10 +60,12 @@ void setupEnvironments()
   hulling.resize(500,500);
 
   //Initialize cup videos
+  hullingTimer = new Movie(this, "p1small.mov");
+  starbucksVideo = new Movie(this, "p1small.mov");
   farmerScene = new Movie(this, "farmerScene.mp4");
   cupGrab = new Movie(this, "cupGrab.mov");
-  cupPlace = new Movie(this, "cupplace.mov");
-  test = new Movie(this, "XX-CupGrab2.mov");
+  cupPlace = new Movie(this, "cupPlace.mov");
+  //test = new Movie(this, "Take1CupGrab.mov");
 }
 
 void draw() 
