@@ -1,7 +1,7 @@
 /* //<>//
  TUIO 1.1 Demo for Processing
  Copyright (c) 2005-2014 Martin Kaltenbrunner <martin@tuio.org>
-
+ 
  Permission is hereby granted, free of charge, to any person obtaining
  a copy of this software and associated documentation files
  (the "Software"), to deal in the Software without restriction,
@@ -20,12 +20,14 @@
  ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ */
 
 
 
 // import the TUIO library
 import TUIO.*;
+import processing.video.*;
+
 // declare a TuioProcessing client
 TuioProcessing tuioClient;
 PImage timelineScreen = null;
@@ -48,10 +50,10 @@ int storyboardNum = 0;
 
 void setup_TUIO()
 {
-  
+
   font = createFont("Arial", 18);
   float buffer_scale = height/table_size;
-  
+
   // finally we create an instance of the TuioProcessing client
   // since we add "this" class as an argument the TuioProcessing class expects
   // an implementation of the TUIO callback methods in this class (see below)
@@ -80,7 +82,6 @@ boolean checkCupPosition(TuioObject tobj, float xExpected, float yExpected) {
 void drawCupOutline(TuioObject cup) {
   redraw();
   if(bg == null) {
-    //translate(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
     bg = loadImage("start.png");
     bg.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
   }
@@ -89,14 +90,9 @@ void drawCupOutline(TuioObject cup) {
   float yCup = cup.getY() * height - projector_offset;
   println(cup.getX());
   println(cup.getY());
-//  println(width);
-//  println(height);
   ellipse(xCup,yCup,100,100);
-  //stroke(#B7FF9C);
-  //fill(#91FF6B);
   noFill();
   stroke(#000000);
-  
 }
 
 
@@ -113,36 +109,43 @@ void startScreen(TuioObject tobj) {
     
     float xCoord = tobj.getX() * width;
     float yCoord = tobj.getY() * height;
-    loadTimelineScreen("timeline1.png");
-//    if (checkCupTriggered(tobj, table_size * 0.5, table_size * 0.1)) {
+  
     //advance storyboardNum counter
     storyboardNum = 1;
-//    }
+   
   }
 }
 
 
 void timelineScreen(TuioObject tobj) {
-//    if (checkCupTriggered(tobj, table_size * 2*(100/6), table_size * (100/5))) {
-    if (tobj.getSymbolID() == 2) {
-      loadTimelineScreen("timeline2.png");
-    }
-//    if (checkCupTriggered(tobj, table_size * 3* (100/6), table_size * (100/5))) {
-    if (tobj.getSymbolID() == 3) {
-       loadTimelineScreen("timeline3.png");
-    }
-//    if (checkCupTriggered(tobj, table_size * 4* (100/6), table_size * (100/5))) {
-    if (tobj.getSymbolID() == 4) {
-        loadTimelineScreen("timeline4.png");
-    }
-//    if (checkCupTriggered(tobj, table_size * 5* (100/6), table_size * (100/5))) {
-    if (tobj.getSymbolID() == 5) {
-      loadTimelineScreen("timeline5.png");
-      delay(2000); // wait 2 seconds
-      loadTimelineScreen("timeline6.png");
-       //advance storyboardNum counter
-       storyboardNum = 2;
-    }
+  //    if (checkCupTriggered(tobj, table_size * 0.5, table_size * 0.1)) {
+  if (tobj.getSymbolID() == 1) {
+    cupPlace.play();
+    image(cupPlace, 0, 0);
+//    delay(5000);
+    loadTimelineScreen("timeline1.png");
+
+  }
+  //    if (checkCupTriggered(tobj, table_size * 2*(100/6), table_size * (100/5))) {
+  if (tobj.getSymbolID() == 2) {
+    loadTimelineScreen("timeline2.png");
+  }
+  //    if (checkCupTriggered(tobj, table_size * 3* (100/6), table_size * (100/5))) {
+  if (tobj.getSymbolID() == 3) {
+    loadTimelineScreen("timeline3.png");
+  }
+  //    if (checkCupTriggered(tobj, table_size * 4* (100/6), table_size * (100/5))) {
+  if (tobj.getSymbolID() == 4) {
+    loadTimelineScreen("timeline4.png");
+  }
+  //    if (checkCupTriggered(tobj, table_size * 5* (100/6), table_size * (100/5))) {
+  if (tobj.getSymbolID() == 5) {
+    loadTimelineScreen("timeline5.png");
+    delay(1000); // wait 1 second
+    loadTimelineScreen("timeline6.png");
+    //advance storyboardNum counter
+    storyboardNum = 2;
+  }
 }
 
 void hullingScreen(TuioObject cup) {
@@ -151,13 +154,13 @@ void hullingScreen(TuioObject cup) {
 
   println(cup.getX() * table_size);
   println(cup.getY() * table_size);
-  
+
   // Hulling zone
   float hullingStartX = table_size/4;
   float hullingEndX = 3*table_size/4;
   float hullingStartY = table_size/4;
   float hullingEndY = 3*table_size/4;
-  
+
   // Define a rotation with hitting 4 points around a circle in the right order
   float topX = table_size/2;
   float topY = hullingStartY;
@@ -167,14 +170,14 @@ void hullingScreen(TuioObject cup) {
   float bottomY = hullingEndY;
   float leftX = hullingStartX;
   float leftY = table_size/2;
-  
+
   int numRotations = 0;
   int pointsHit = 0;
   int lastPointHit = 0;
 
   float cupX = cup.getX() * table_size;
   float cupY = cup.getY() * table_size;
-  
+
   if ((cupX == topX) && (cupY == topY) && (lastPointHit == 0 || lastPointHit == 4)) {
     if (pointsHit == 4) {
       numRotations++;
@@ -196,38 +199,39 @@ void hullingScreen(TuioObject cup) {
     //println(lastPointHit);
   }
   println(numRotations);
+  cupGrab.play();
+  image(cupGrab, 0, 0);
 }
 
 // within the draw method we retrieve an ArrayList of type <TuioObject>, <TuioCursor> or <TuioBlob>
 // from the TuioProcessing client and then loops over all lists to draw the graphical feedback.
 void draw_TUIO()
 {
-//  if (cam.available()) { 
-//    // Reads the new frame
-//    cam.read(); 
-//  }
-  textFont(font,18*scale_factor);   
+  //  if (cam.available()) { 
+  //    // Reads the new frame
+  //    cam.read(); 
+  //  }
+  textFont(font, 18*scale_factor);   
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
-  
-   /* -------------------------------------------------------------
+
+  /* -------------------------------------------------------------
    --- FEDUCIAL DETECTION (ENVIRONMENT AND OBJECT CHANGES) -----
    --------------------------------------------------------------- */
-   // Determine which fiducials are present on the screen
-   
-   if(tuioObjectList.size() > 0) {
-     TuioObject last = tuioObjectList.get(0); // Coffee cup
-     drawCupOutline(last);
-     if (storyboardNum == 0) { // start screen
-       startScreen(last);
-     } else if (storyboardNum == 1) { // timeline screen
-       timelineScreen(last);
-     } else if (storyboardNum == 2) { // hulling screen
-       hullingScreen(last);
-     } else { // Default to start screen
-       background(welcome);
-     }
-     
-   }
+  // Determine which fiducials are present on the screen
+
+  if (tuioObjectList.size() > 0) {
+    TuioObject last = tuioObjectList.get(0); // Coffee cup
+    drawCupOutline(last);
+    if (storyboardNum == 0) { // start screen
+      startScreen(last);
+    } else if (storyboardNum == 1) { // timeline screen
+      timelineScreen(last);
+    } else if (storyboardNum == 2) { // hulling screen
+      hullingScreen(last);
+    } else { // Default to start screen
+      background(welcome);
+    }
+  }
 }
 
 // --------------------------------------------------------------
@@ -243,7 +247,7 @@ void addTuioObject(TuioObject tobj) {
 // called when an object is moved
 void updateTuioObject (TuioObject tobj) {
   if (verbose) println("set obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle()
-          +" "+tobj.getMotionSpeed()+" "+tobj.getRotationSpeed()+" "+tobj.getMotionAccel()+" "+tobj.getRotationAccel());
+    +" "+tobj.getMotionSpeed()+" "+tobj.getRotationSpeed()+" "+tobj.getMotionAccel()+" "+tobj.getRotationAccel());
 }
 
 // called when an object is removed from the scene
@@ -261,7 +265,7 @@ void addTuioCursor(TuioCursor tcur) {
 // called when a cursor is moved
 void updateTuioCursor (TuioCursor tcur) {
   if (verbose) println("set cur "+tcur.getCursorID()+" ("+tcur.getSessionID()+ ") " +tcur.getX()+" "+tcur.getY()
-          +" "+tcur.getMotionSpeed()+" "+tcur.getMotionAccel());
+    +" "+tcur.getMotionSpeed()+" "+tcur.getMotionAccel());
   //redraw();
 }
 
@@ -281,7 +285,7 @@ void addTuioBlob(TuioBlob tblb) {
 // called when a blob is moved
 void updateTuioBlob (TuioBlob tblb) {
   if (verbose) println("set blb "+tblb.getBlobID()+" ("+tblb.getSessionID()+") "+tblb.getX()+" "+tblb.getY()+" "+tblb.getAngle()+" "+tblb.getWidth()+" "+tblb.getHeight()+" "+tblb.getArea()
-          +" "+tblb.getMotionSpeed()+" "+tblb.getRotationSpeed()+" "+tblb.getMotionAccel()+" "+tblb.getRotationAccel());
+    +" "+tblb.getMotionSpeed()+" "+tblb.getRotationSpeed()+" "+tblb.getMotionAccel()+" "+tblb.getRotationAccel());
   //redraw()
 }
 
@@ -297,5 +301,4 @@ void refresh(TuioTime frameTime) {
   if (verbose) println("frame #"+frameTime.getFrameID()+" ("+frameTime.getTotalMilliseconds()+")");
   if (callback) redraw();
 }
-
 
