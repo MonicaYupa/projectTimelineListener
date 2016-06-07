@@ -18,10 +18,12 @@ PImage timelineScreen = null;
 Movie farmerScene;
 Movie cupGrab;
 Movie cupPlace;
+Movie test;
 
 // Screen flow logic
 int storyboardNum = 0;
 boolean timelineStarted = false;
+int timelineNode = 0;
 
 void setup()
 {
@@ -51,8 +53,10 @@ void setupEnvironments()
   background(timelineScreen);
 
   //Initialize cup videos
+  farmerScene = new Movie(this, "farmerScene.mp4");
   cupGrab = new Movie(this, "cupGrab.mov");
   cupPlace = new Movie(this, "cupplace.mov");
+  test = new Movie(this, "XXCupGrab.mov");
 }
 
 void draw() 

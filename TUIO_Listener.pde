@@ -88,12 +88,12 @@ void drawCupOutline(TuioObject cup) {
     timelineScreen.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
   } 
   
-  background(timelineScreen);
+  //background(timelineScreen);
   float xCup = cup.getX() * width;
   float yCup = cup.getY() * height - projector_offset;
-  ellipse(xCup,yCup,cup_outline_diameter,cup_outline_diameter);
-  noFill();
-  stroke(#000000);
+  //ellipse(xCup,yCup,cup_outline_diameter,cup_outline_diameter);
+  //noFill();
+  //stroke(#000000);
 }
 
 
@@ -109,7 +109,7 @@ void startScreen(TuioObject tobj) {
   if (checkCupPosition(tobj, table_size * 0.5 - cup_outline_diameter/2.0, table_size * 0.1)) {
     loadTimelineScreen("timeline0.png");
     storyboardNum = 1; //advance storyboardNum counter
-    drawZone(5.0*table_size/6.0, table_size/6.0);
+    //drawZone(5.0*table_size/6.0, table_size/6.0);
   }
 }
 
@@ -118,33 +118,59 @@ void timelineScreen(TuioObject tobj) {
   if (checkCupPosition(tobj, 5.0*table_size/6.0, table_size/6.0) && !timelineStarted) {
     loadTimelineScreen("timeline1.png");
     timelineStarted = true;
-    drawZone(5.0*table_size/6.0, table_size/6.0);
+    //drawZone(4.0*table_size/6.0, table_size/6.0);
+    timelineNode = 1;
   }
   
-  if (checkCupPosition(tobj, 5.0*table_size/6.0, table_size/6.0) && timelineStarted) {    
+  if (checkCupPosition(tobj, 4.0*table_size/6.0, table_size/6.0) && timelineStarted &&
+      (timelineNode == 1)) {    
     loadTimelineScreen("timeline2.png"); 
-    drawZone(4.0*table_size/6.0, table_size/6.0);
+    //drawZone(3.0*table_size/6.0, table_size/6.0);
+    timelineNode = 2; 
   }
   
-  if (checkCupPosition(tobj, 4.0*table_size/6.0, table_size/6.0)) {
+  if (checkCupPosition(tobj, 3.0*table_size/6.0, table_size/6.0) && (timelineNode == 2)) {
     loadTimelineScreen("timeline3.png");
-    drawZone(3.0*table_size/6.0, table_size/6.0);
+    //drawZone(2.0*table_size/6.0, table_size/6.0);
+    timelineNode = 3;
   }
   
-  if (checkCupPosition(tobj, 3.0*table_size/6.0, table_size/6.0)) {
+  if (checkCupPosition(tobj, 2.0*table_size/6.0, table_size/6.0) && (timelineNode == 3)) {
     loadTimelineScreen("timeline4.png");
-    drawZone(table_size/6.0, table_size/6.0);
+    //drawZone(table_size/6.0, table_size/6.0);
+    timelineNode = 4;
   }
   
-  if (checkCupPosition(tobj, table_size/6.0, table_size/6.0)) {
+  if (checkCupPosition(tobj, table_size/6.0, table_size/6.0) && (timelineNode == 4)) {
     loadTimelineScreen("timeline5.png");
-    delay(1000); // wait 1 second
     loadTimelineScreen("timeline6.png");
+    timelineNode = 5;
     storyboardNum = 2; //advance storyboardNum counter
   }
 }
 
+
+void videoScreen(TuioObject cup) {
+  clear();
+  println("video screen");
+
+//  cupGrab.play();
+//  image(cupGrab, 0, 0);
+  
+//  farmerScene.play();
+//  image(farmerScene, 0, 0);
+
+//    cupPlace.play();
+//    image(cupPlace, 0, 0);
+  
+  test.play();
+  image(test, 0, 0);
+}
+
+
 void hullingScreen(TuioObject cup) {
+  println("hulling screen");
+  
   //advance storyboardNum counter
   storyboardNum = 3;
 
@@ -192,8 +218,6 @@ void hullingScreen(TuioObject cup) {
     //println(lastPointHit);
   }
 //  println(numRotations);
-//  cupGrab.play();
-//  image(cupGrab, 0, 0);
 }
 
 // within the draw method we retrieve an ArrayList of type <TuioObject>, <TuioCursor> or <TuioBlob>
@@ -212,12 +236,16 @@ void draw_TUIO()
    --------------------------------------------------------------- */
   if (tuioObjectList.size() > 0) {
     TuioObject last = tuioObjectList.get(0); // Coffee cup
-    drawCupOutline(last);
+    
     if (storyboardNum == 0) { // start screen
+      //drawCupOutline(last);
       startScreen(last);
     } else if (storyboardNum == 1) { // timeline flow
+      //drawCupOutline(last);
       timelineScreen(last);
-    } else if (storyboardNum == 2) { // hulling screen
+    } else if (storyboardNum == 2) { // video screen
+      videoScreen(last);
+    } else if (storyboardNum == 3) { // hulling screen
       hullingScreen(last);
     } else { // Default to start screen
       loadTimelineScreen("start.png");
