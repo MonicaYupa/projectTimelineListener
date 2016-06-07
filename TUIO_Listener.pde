@@ -131,17 +131,17 @@ void timelineScreen(TuioObject tobj) {
   
   if (checkCupPosition(tobj, 3.0*table_size/6.0, table_size/6.0) && (timelineNode == 2)) {
     loadTimelineScreen("timeline3.png");
-    //drawZone(2.0*table_size/6.0, table_size/6.0);
+    //drawZone(2.5*table_size/6.0, table_size/6.0);
     timelineNode = 3;
   }
   
   if (checkCupPosition(tobj, 2.0*table_size/6.0, table_size/6.0) && (timelineNode == 3)) {
     loadTimelineScreen("timeline4.png");
-    //drawZone(table_size/6.0, table_size/6.0);
+    drawZone(1.5*table_size/6.0, table_size/6.0);
     timelineNode = 4;
   }
   
-  if (checkCupPosition(tobj, table_size/6.0, table_size/6.0) && (timelineNode == 4)) {
+  if (checkCupPosition(tobj, 1.5*table_size/6.0, table_size/6.0) && (timelineNode == 4)) {
     loadTimelineScreen("timeline5.png");
     loadTimelineScreen("timeline6.png");
     timelineNode = 5;
@@ -165,11 +165,15 @@ void videoScreen(TuioObject cup) {
   
   test.play();
   image(test, 0, 0);
+  //storyboardNum = 3;
 }
 
 
 void hullingScreen(TuioObject cup) {
+  clear();
+  background(#ffffff);
   println("hulling screen");
+  image(hulling,height/2 - 100, width/2 - 250);
   
   //advance storyboardNum counter
   storyboardNum = 3;
@@ -247,6 +251,12 @@ void draw_TUIO()
       videoScreen(last);
     } else if (storyboardNum == 3) { // hulling screen
       hullingScreen(last);
+    } else if (storyboardNum == 4) { // hulling done screen
+      loadTimelineScreen("wheel2.png");
+      delay(1000);
+      loadTimelineScreen("wheel1.png");
+      delay(1000);
+      background(#ffffff);
     } else { // Default to start screen
       loadTimelineScreen("start.png");
     }

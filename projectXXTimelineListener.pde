@@ -15,6 +15,7 @@ float cup_outline_diameter = 150.0;
 // Screen display
 Capture cam = null;
 PImage timelineScreen = null;
+PImage hulling = null;
 Movie farmerScene;
 Movie cupGrab;
 Movie cupPlace;
@@ -51,6 +52,9 @@ void setupEnvironments()
   timelineScreen = loadImage("start.png");
   timelineScreen.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
   background(timelineScreen);
+  
+  hulling = loadImage("wheel.png");
+  hulling.resize(500,500);
 
   //Initialize cup videos
   farmerScene = new Movie(this, "farmerScene.mp4");
