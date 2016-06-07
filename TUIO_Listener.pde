@@ -207,10 +207,10 @@ void hullingScreen(TuioObject cup) {
 // from the TuioProcessing client and then loops over all lists to draw the graphical feedback.
 void draw_TUIO()
 {
-  //  if (cam.available()) { 
-  //    // Reads the new frame
-  //    cam.read(); 
-  //  }
+  if (cam.available()) { 
+    // Reads the new frame
+    cam.read(); 
+  }
   textFont(font, 18*scale_factor);   
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
 
