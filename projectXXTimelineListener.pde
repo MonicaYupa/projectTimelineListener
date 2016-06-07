@@ -14,14 +14,13 @@ float cup_outline_diameter = 150.0;
 
 // Screen display
 Capture cam = null;
+PImage timelineScreen = null;
 Movie farmerScene;
 Movie cupGrab;
 Movie cupPlace;
-PImage welcome = null;
 
 // Screen flow logic
 int storyboardNum = 0;
-boolean startScreen = true;
 boolean timelineStarted = false;
 
 void setup()
@@ -48,11 +47,8 @@ void setup()
 void setupEnvironments()
 {
   background(255,255,255); // white
-  welcome = loadImage("start.png");
-  welcome.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
-  if(timelineScreen == null) {
-    background(welcome);
-  }
+  timelineScreen = loadImage("start.png");
+  timelineScreen.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
   //Initialize cup videos
   cupGrab = new Movie(this, "cupGrab.mov");
