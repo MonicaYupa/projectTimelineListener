@@ -37,6 +37,8 @@ float object_size = 60;
 float table_size = 760;
 float scale_factor = 1;
 float buffer_scale = 0.15; //NOTE THIS MAY HAVE TO BE ADJUSTED AFTER TESTING PHYSICAL SETUP
+//float projector_scale = .51;
+float projector_offset = 133; // only for y coordinates
 PFont font;
 
 boolean verbose = false; // print console debug messages
@@ -78,15 +80,23 @@ boolean checkCupPosition(TuioObject tobj, float xExpected, float yExpected) {
 void drawCupOutline(TuioObject cup) {
   redraw();
   if(bg == null) {
+    //translate(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
     bg = loadImage("start.png");
     bg.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
   }
   background(bg);
   float xCup = cup.getX() * width;
-  float yCup = cup.getY() * height;
+  float yCup = cup.getY() * height - projector_offset;
+  println(cup.getX());
+  println(cup.getY());
+//  println(width);
+//  println(height);
   ellipse(xCup,yCup,100,100);
-  stroke(#B7FF9C);
-  fill(#91FF6B);
+  //stroke(#B7FF9C);
+  //fill(#91FF6B);
+  noFill();
+  stroke(#000000);
+  
 }
 
 
@@ -100,10 +110,7 @@ void loadTimelineScreen(String screenname) {
 
 void startScreen(TuioObject tobj) {
   if (tobj.getSymbolID() == 0) {
-    println(tobj.getX() * width);
-    println(tobj.getY() * height);
-    println(width);
-    println(height);
+    
     float xCoord = tobj.getX() * width;
     float yCoord = tobj.getY() * height;
     loadTimelineScreen("timeline1.png");

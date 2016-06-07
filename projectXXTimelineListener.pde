@@ -7,8 +7,8 @@ Contains the setup() and draw() function.
 */
 
 // Global variables
-int WINDOW_HEIGHT = 800;
-int WINDOW_WIDTH = 800;
+int WINDOW_HEIGHT = 700;
+int WINDOW_WIDTH = 700;
 
 Movie farmerScene;
 String[] environments = new String[7];
@@ -34,15 +34,10 @@ void setup()
     exit();
   } else {
       // TODO: Put a safety hack here
-      println(cameras[15]);
       Capture cam = new Capture(this, cameras[15]);
       cam.start();
-    }       
-    
+    }
 }
-
-
-
 
 void setupEnvironments()
 {
@@ -52,9 +47,6 @@ void setupEnvironments()
   if(bg == null) {
     background(welcome);
   }
-  
- 
-  
   
   // Initialize environment images
   environments[0] = "start.png"; // Start screen
