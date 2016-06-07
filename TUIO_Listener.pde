@@ -193,19 +193,23 @@ void videoScreen(TuioObject cup) {
 
 
 void hullingScreen(TuioObject cup) {
+  clear();
+  background(#ffffff);
+  
   // Use the starbucks video as a ten second timer
   hullingTimer.play();
   hullingTimer.volume(0);
   float hulling_md = hullingTimer.duration();
   float hulling_mt = hullingTimer.time();
+  if ((hulling_mt >= hulling_md*.5) && (hulling_mt < hulling_md)) {
+    image(wheel2,0.0,0.0);
+  }
   if (hulling_md == hulling_mt) {
     hullingDone = true;
   }
       
-  clear();
-  background(#ffffff);
-  println("hulling screen");
-  image(hulling,height/2 - 100, width/2 - 250);
+//  println("hulling screen");
+  image(hulling, 0, width/2 - 300);
 
   // Hulling zone
   float hullingStartX = table_size/4;
@@ -264,7 +268,7 @@ void hullingScreen(TuioObject cup) {
 }
 
 void endingScreen(TuioObject cup) {
-  image(wheel2,0.0,0.0);
+
   cupPlace.play();
   image(cupPlace,0,0);
   
