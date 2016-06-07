@@ -264,11 +264,7 @@ void hullingScreen(TuioObject cup) {
 }
 
 void endingScreen(TuioObject cup) {
-  loadTimelineScreen("wheel2.png");
-  delay(1000);
-  loadTimelineScreen("wheel1.png");
-  delay(1000);
-  background(#ffffff);
+  image(wheel2,0.0,0.0);
   cupPlace.play();
   image(cupPlace,0,0);
   

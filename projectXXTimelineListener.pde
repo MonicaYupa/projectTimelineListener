@@ -16,6 +16,8 @@ float cup_outline_diameter = 150.0;
 Capture cam = null;
 PImage timelineScreen = null;
 PImage hulling = null;
+PImage wheel1 = null;
+PImage wheel2 = null;
 Movie starbucksVideo;
 Movie hullingTimer;
 Movie farmerScene;
@@ -58,6 +60,9 @@ void setupEnvironments()
   
   hulling = loadImage("wheel.png");
   hulling.resize(500,500);
+  
+  wheel1 = loadImage("wheel1.png");
+  wheel2 = loadImage("wheel2.png");
 
   //Initialize cup videos
   hullingTimer = new Movie(this, "p1small.mov");
