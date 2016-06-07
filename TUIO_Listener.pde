@@ -40,13 +40,17 @@ float table_size = 760;
 float scale_factor = 1;
 float buffer_scale = 0.15; //NOTE THIS MAY HAVE TO BE ADJUSTED AFTER TESTING PHYSICAL SETUP
 //float projector_scale = .51;
-float projector_offset = 133; // only for y coordinates
+float projector_offset = 133.0; // only for y axis
+float cup_outline_diameter = 150.0;
 PFont font;
 
 boolean verbose = false; // print console debug messages
 boolean callback = true; // updates only after callbacks
 
 int storyboardNum = 0;
+
+// Screen flow logic
+boolean timelineStarted = false;
 
 void setup_TUIO()
 {
@@ -79,20 +83,29 @@ boolean checkCupPosition(TuioObject tobj, float xExpected, float yExpected) {
   }
 }
 
+
+void drawZone(float x, float y) {
+  rect(x - cup_outline_diameter/2.0,y - cup_outline_diameter/2.0,cup_outline_diameter,cup_outline_diameter);
+}
+
+
 void drawCupOutline(TuioObject cup) {
   redraw();
-  if(bg == null) {
+  if(timelineScreen == null) {
     bg = loadImage("start.png");
     bg.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    background(bg);
+  } else {
+    background(timelineScreen);
   }
-  background(bg);
   float xCup = cup.getX() * width;
   float yCup = cup.getY() * height - projector_offset;
-  println(cup.getX());
-  println(cup.getY());
-  ellipse(xCup,yCup,100,100);
+  ellipse(xCup,yCup,cup_outline_diameter,cup_outline_diameter);
   noFill();
   stroke(#000000);
+  
+  // TEST CODE
+  drawZone(5*table_size/6.0, table_size/6.0);
 }
 
 
@@ -118,28 +131,36 @@ void startScreen(TuioObject tobj) {
 
 
 void timelineScreen(TuioObject tobj) {
-  //    if (checkCupTriggered(tobj, table_size * 0.5, table_size * 0.1)) {
-  if (tobj.getSymbolID() == 1) {
-    cupPlace.play();
-    image(cupPlace, 0, 0);
-//    delay(5000);
+  if (checkCupPosition(tobj, table_size * 0.5 - cup_outline_diameter/2.0, table_size * 0.1 - cup_outline_diameter/2.0) &&
+      !timelineStarted) {
+    loadTimelineScreen("timeline0.png");
+    
+  }
+  
+  if (checkCupPosition(tobj, 5.0*table_size/6.0, table_size/6.0) &&
+      !timelineStarted) {    
     loadTimelineScreen("timeline1.png");
+    timelineStarted = true;
 
   }
-  //    if (checkCupTriggered(tobj, table_size * 2*(100/6), table_size * (100/5))) {
-  if (tobj.getSymbolID() == 2) {
+  
+  if (checkCupPosition(tobj, table_size * 2*(100/6), table_size * (100/5)) &&
+        timelineStarted) {
     loadTimelineScreen("timeline2.png");
   }
-  //    if (checkCupTriggered(tobj, table_size * 3* (100/6), table_size * (100/5))) {
-  if (tobj.getSymbolID() == 3) {
+  
+  if (checkCupPosition(tobj, table_size * 3* (100/6), table_size * (100/5)) &&
+      timelineStarted) {
     loadTimelineScreen("timeline3.png");
   }
-  //    if (checkCupTriggered(tobj, table_size * 4* (100/6), table_size * (100/5))) {
-  if (tobj.getSymbolID() == 4) {
+  
+  if (checkCupPosition(tobj, table_size * 4* (100/6), table_size * (100/5)) &&
+      timelineStarted) {
     loadTimelineScreen("timeline4.png");
   }
-  //    if (checkCupTriggered(tobj, table_size * 5* (100/6), table_size * (100/5))) {
-  if (tobj.getSymbolID() == 5) {
+  
+  if (checkCupPosition(tobj, table_size * 5* (100/6), table_size * (100/5)) &&
+      timelineStarted) {
     loadTimelineScreen("timeline5.png");
     delay(1000); // wait 1 second
     loadTimelineScreen("timeline6.png");
@@ -198,9 +219,9 @@ void hullingScreen(TuioObject cup) {
     lastPointHit = 4;
     //println(lastPointHit);
   }
-  println(numRotations);
-  cupGrab.play();
-  image(cupGrab, 0, 0);
+//  println(numRotations);
+//  cupGrab.play();
+//  image(cupGrab, 0, 0);
 }
 
 // within the draw method we retrieve an ArrayList of type <TuioObject>, <TuioCursor> or <TuioBlob>
