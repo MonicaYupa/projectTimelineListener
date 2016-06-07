@@ -56,7 +56,7 @@ void setupEnvironments()
   farmerScene = new Movie(this, "farmerScene.mp4");
   cupGrab = new Movie(this, "cupGrab.mov");
   cupPlace = new Movie(this, "cupplace.mov");
-  test = new Movie(this, "XXCupGrab.mov");
+  test = new Movie(this, "XX-CupGrab2.mov");
 }
 
 void draw() 
